@@ -8,7 +8,8 @@ pipeline {
     }
     stage('Test') {
       steps {
-        sh(script: './mvnw --batch-mode -Dmaven.test.failure.ignore=true test')
+        sh 'mvn clean package'
+        sh 'mvn test'
 
       }
     }
