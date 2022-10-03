@@ -6,5 +6,8 @@ pipeline {
         sh 'echo "Hello World"'
       }
     }
+    stage('Test') {
+        sh './mvnw test'
+    }
   }
 }
