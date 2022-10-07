@@ -1,9 +1,6 @@
 pipeline {
   agent any
-  tools {
-        mvn "M2_HOME"
-        jdk "JAVA_HOME"
-    }
+
   
   stages {
     stage('hello') {
