@@ -1,5 +1,5 @@
 pipeline {
-  agent {label 'linux'}
+  agentany
   tools {
      maven '3.8.1'
   }
