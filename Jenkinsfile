@@ -36,6 +36,13 @@ pipeline {
 
       }
     }
+    
+    stage('Docker Build') {
+    	agent any
+      steps {
+        sh 'echo "Docker is building ...."'
+      	sh 'docker build -t ademesprit98/DevOpsProject5DS1group5 .'
+      }
   }
 }
 
