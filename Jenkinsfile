@@ -5,13 +5,9 @@ pipeline {
      maven 'M2_HOME'
   }
   stages {
-    stage('hello') {
-      steps {
-        sh 'echo "Hello World"' 
-      }
-    }
-    stage ('Initialize') {
+    stage ('Check Tools Initializing') {
             steps {
+                sh 'java --version'
                 sh 'mvn --version'
                 sh '''
                     echo "PATH = ${PATH}"
@@ -19,14 +15,23 @@ pipeline {
                 '''
             }
         }
-    stage ('Build') {
+    stage('Cleaning the Project') {
+      steps {
+         sh 'echo "Clean the Project is processing ...."'
+        sh 'mvn clean'
+      }
+    }
+    
+    stage ('Artifact construction') {
             steps {
+                sh 'echo "Artifact construction is processing ...."'
                 sh 'mvn  package' 
             }
             
         }
-    stage('Test') {
+    stage('Junit Testing') {
       steps {
+         sh 'echo "Junit Test is processing ...."'
         sh 'mvn  test'
 
       }
