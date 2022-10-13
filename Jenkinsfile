@@ -18,7 +18,7 @@ pipeline {
         }
     stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn clean package' 
             }
             post {
                 success {
@@ -28,7 +28,7 @@ pipeline {
         }
     stage('Test') {
       steps {
-        sh 'mvn -Dmaven.test.failure.ignore=true test'
+        sh 'mvn test'
 
       }
     }
