@@ -1,17 +1,18 @@
 pipeline {
   agent any
   tools {
-     maven '3.8.1'
+     jdk 'JAVA_HOME'
+     maven 'M2_HOME'
   }
   stages {
     stage('hello') {
       steps {
-        sh 'echo "Hello World   "'
-        sh 'mvn --version'
+        sh 'echo "Hello World"' 
       }
     }
     stage ('Initialize') {
             steps {
+                sh 'mvn --version'
                 sh '''
                     echo "PATH = ${PATH}"
                     echo "M2_HOME = ${M2_HOME}"
@@ -20,7 +21,7 @@ pipeline {
         }
     stage ('Build') {
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh 'mvn -Dmaven.test.failure.ignore=true package' 
             }
             post {
                 success {
@@ -30,7 +31,7 @@ pipeline {
         }
     stage('Test') {
       steps {
-        sh 'mvn -Dmaven.test.failure.ignore=true test'
+        sh 'mvn  test'
 
       }
     }
