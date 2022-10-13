@@ -1,7 +1,8 @@
 pipeline {
-  agent any
-
-  
+  agent {label 'linux'}
+  tools {
+     maven '3.8.1'
+  }
   stages {
     stage('hello') {
       steps {
