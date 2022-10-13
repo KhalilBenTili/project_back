@@ -19,10 +19,9 @@ pipeline {
       steps {
          sh 'echo "Clean the Project is processing ...."'
         sh 'mvn clean'
-        mail to: "khalilbentili2@gmail.com",
-                    subject: "Build sucess",
-                    body: "sucess"
+        
       }
+      
     }
     
     stage ('Artifact construction') {
@@ -30,6 +29,7 @@ pipeline {
                 sh 'echo "Artifact construction is processing ...."'
                 sh 'mvn  package' 
             }
+      
             
         }
     stage('Junit Testing') {
@@ -48,6 +48,20 @@ pipeline {
       }
   }
 }
+  post {
+        success {
+             mail to: "khalilbentili2@gmail.com",
+                    subject: "Build sucess",
+                    body: "sucess"
+            echo 'successful'
+        }
+        failure {
+             mail to: "khalilbentili2@gmail.com",
+                    subject: "Build failed",
+                    body: "failed"
+            echo 'failed'
+        }
+      }
 }
 
 
