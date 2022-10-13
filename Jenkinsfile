@@ -41,7 +41,7 @@ pipeline {
     	agent any
       steps {
         sh 'echo "Docker is building ...."'
-      	sh 'docker build -t ademesprit98/DevOpsProject5DS1group5 .'
+      	sh 'docker build -t ademesprit98/devops_project_5ds1group5 .'
       }
   }
 }
