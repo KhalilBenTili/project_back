@@ -19,6 +19,9 @@ pipeline {
       steps {
          sh 'echo "Clean the Project is processing ...."'
         sh 'mvn clean'
+        mail to: "khalilbentili2@gmail.com",
+                    subject: "Build sucess",
+                    body: "sucess"
       }
     }
     
