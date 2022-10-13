@@ -14,6 +14,8 @@
 	<name>tpAchatProject</name>
 	<description>tpAchatProject</description>
 	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+   		 <maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>11</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
 	</properties>
