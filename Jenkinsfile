@@ -56,7 +56,7 @@ pipeline {
     	agent any
       steps {
         sh 'echo "login Docker ...."'
-      	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR DOCKERHUB_CREDENTIALS_PSW'
       }
   }
     
