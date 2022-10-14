@@ -4,6 +4,9 @@ pipeline {
      jdk 'JAVA_HOME'
      maven 'M2_HOME'
   }
+  environment{
+    DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+  }
   stages {
     stage ('Check Tools Initializing') {
             steps {
@@ -40,13 +43,31 @@ pipeline {
       }
     }
     
-    stage('Docker Build') {
+    stage('Docker build') {
     	agent any
       steps {
         sh 'echo "Docker is building ...."'
       	sh 'docker build -t ademesprit98/devops_project_5ds1group5 .'
       }
   }
+    
+    
+    stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+  }
+    
+    stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push ademesprit98/devops_project_5ds1group5'
+      }
+  }
+    
 }
   post {
         success {
