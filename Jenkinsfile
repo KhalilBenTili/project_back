@@ -6,6 +6,8 @@ pipeline {
   }
   environment{
     DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    DOCKERHUB_USERNAME = credentials('DockerHubID_USERNAME')
+    DOCKERHUB_PASSWORD = credentials('DockerHubID_PASSWORD')
   }
   stages {
     stage ('Check Tools Initializing') {
@@ -56,8 +58,8 @@ pipeline {
     	agent any
       steps {
         sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR'
-        sh 'DOCKERHUB_CREDENTIALS_PSW'
+      	sh 'docker login -u DOCKERHUB_USERNAME'
+        sh 'DOCKERHUB_PASSWORD'
       }
   }
     
