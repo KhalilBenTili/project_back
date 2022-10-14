@@ -47,7 +47,7 @@ pipeline {
     	agent any
       steps {
         sh 'echo "Docker is building ...."'
-      	sh 'docker build -t ademesprit98/devops_project_5ds1group5 .'
+      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
       }
   }
     
