@@ -1,13 +1,11 @@
 pipeline {
+  
+    agent {
+        dockerfile true
+    }
   environment {
         JAVA_TOOL_OPTIONS = "-Duser.home=/home/jenkins"
         DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
-    }
-    agent {
-        dockerfile {
-            
-            args "-v /tmp/maven:/home/jenkins/.m2 -e MAVEN_CONFIG=/home/jenkins/.m2"
-        }
     }
   
   stages {
