@@ -1,12 +1,15 @@
 pipeline {
-  agent any
-  tools {
-     jdk 'JAVA_HOME'
-     maven 'M2_HOME'
-  }
-  environment{
-    DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
-  }
+  environment {
+        JAVA_TOOL_OPTIONS = "-Duser.home=/home/jenkins"
+        DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
+    }
+    agent {
+        dockerfile {
+            label "docker"
+            args "-v /tmp/maven:/home/jenkins/.m2 -e MAVEN_CONFIG=/home/jenkins/.m2"
+        }
+    }
+  
   stages {
     stage ('Check Tools Initializing') {
             steps {
