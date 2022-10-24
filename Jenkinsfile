@@ -74,13 +74,13 @@ pipeline {
 }
   post {
         success {
-             mail to: "khalilbentili2@gmail.com",
+             mail to: "houaidafatma.karoui@esprit.tn",
                     subject: "Build sucess",
                     body: "sucess"
             echo 'successful'
         }
         failure {
-             mail to: "khalilbentili2@gmail.com",
+             mail to: "houaidafatma.karoui@esprit.tn",
                     subject: "Build failed",
                     body: "failed"
             echo 'failed'
