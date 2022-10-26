@@ -30,6 +30,14 @@ pipeline {
       
     }
     
+    stage('Junit Testing') {
+      steps {
+         sh 'echo "Junit Test is processing ...."'
+        sh 'mvn  test'
+
+      }
+    }
+    
     stage ('Artifact construction') {
             steps {
                 sh 'echo "Artifact construction is processing ...."'
@@ -38,13 +46,8 @@ pipeline {
       
             
         }
-    stage('Junit Testing') {
-      steps {
-         sh 'echo "Junit Test is processing ...."'
-        sh 'mvn  test'
-
-      }
-    }
+    
+    
     
     stage('Docker build') {
     	agent any
