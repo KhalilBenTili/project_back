@@ -22,23 +22,7 @@ pipeline {
             }
         }
 	
-           stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			      withSonarQubeEnv('Sonar') {
-			      sh "mvn compile sonar:sonar"
-                       	     	}
-			      timeout(time: 1, unit: 'HOURS') {
-			      def qg = waitForQualityGate()
-				      if (qg.status != 'OK') {
-					   error "Pipeline aborted due to quality gate failure: ${qg.status}"
-				      }
-                    		}
-		    	    sh "mvn clean install"
-
-                 	}
-               	 }
-              }	
+ 
     stage('Cleaning the Project') {
       steps {
          sh 'echo "Clean the Project is processing ...."'
@@ -60,7 +44,7 @@ pipeline {
     stage('Quality Gate Status Check'){
                   steps{
                       script{
-			withSonarQubeEnv('sonar') {
+			withSonarQubeEnv('Sonar') {
 			     sh "mvn compile sonar:sonar"
                        	          }
 		    	    sh "mvn clean install"
