@@ -45,7 +45,8 @@ pipeline {
 		    	    sh "mvn clean install"
 
                  	}
-               	 }	  
+               	 }
+    }
     
     stage('Junit Testing') {
       steps {
