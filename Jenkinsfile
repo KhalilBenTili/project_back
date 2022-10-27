@@ -30,7 +30,18 @@ pipeline {
       
     }
 	  
-    stage('Quality Gate Status Check'){
+   stage('Junit Testing') {
+                              steps {
+                               script {
+                                sh 'echo "Test is processing ...."'
+                                sh 'mvn clean test'
+                               }
+
+                              }
+
+                            }
+
+             stage('Quality Gate Status Check'){
                   steps{
                       script{
 			      withSonarQubeEnv('Sonar') {
@@ -46,7 +57,7 @@ pipeline {
 
                  	}
                	 }
-    }
+              }	 
     
     stage('Junit Testing') {
       steps {
