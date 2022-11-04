@@ -142,19 +142,19 @@ pipeline {
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: pom.version,
-                            repository: NEXUS_REPOSITORY,
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: '192.168.56.10:8081',
+                            groupId: 'pom.com.esprit.examen',
+                            version: 'pom.1.0',
+                            repository: 'maven-releases',
                             credentialsId: NEXUS_CREDENTIAL_ID,
                             artifacts: [
-                                [artifactId: pom.artifactId,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: artifactPath,
                                 type: pom.packaging],
-                                [artifactId: pom.artifactId,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: "pom.xml",
                                 type: "pom"]
