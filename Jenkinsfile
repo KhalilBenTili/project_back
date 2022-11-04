@@ -8,12 +8,6 @@ pipeline {
   environment {
         
         DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
-	
-	NEXUS_VERSION = "nexus3"
-        NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.56.10:8081"
-        NEXUS_REPOSITORY = "maven-nexus-repo"
-        NEXUS_CREDENTIAL_ID = "nexus-user-credentials"
     }
   
   stages {
@@ -142,19 +136,19 @@ pipeline {
                     if(artifactExists) {
                         echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
                         nexusArtifactUploader(
-                            nexusVersion: NEXUS_VERSION,
-                            protocol: NEXUS_PROTOCOL,
-                            nexusUrl: NEXUS_URL,
-                            groupId: pom.groupId,
-                            version: pom.version,
-                            repository: NEXUS_REPOSITORY,
-                            credentialsId: NEXUS_CREDENTIAL_ID,
+                            nexusVersion: 'nexus3',
+                            protocol: 'http',
+                            nexusUrl: '192.168.56.10:8081',
+                            groupId: 'pom.com.esprit.examen',
+                            version: 'pom.2.0',
+                            repository: 'maven-releases',
+                            credentialsId: 'nexus',
                             artifacts: [
-                                [artifactId: pom.artifactId,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: artifactPath,
                                 type: pom.packaging],
-                                [artifactId: pom.artifactId,
+                                [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
                                 file: "pom.xml",
                                 type: "pom"]
