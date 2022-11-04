@@ -141,8 +141,8 @@ pipeline {
                             nexusUrl: '192.168.56.10:8081',
                             groupId: 'pom.com.esprit.examen',
                             version: 'pom.2.0',
-                            repository: 'maven-releases',
-                            credentialsId: 'nexus',
+                            repository: 'maven-nexus-repo',
+                            credentialsId: 'nexus-user-credentials',
                             artifacts: [
                                 [artifactId: 'pom.tpAchatProject',
                                 classifier: '',
