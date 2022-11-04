@@ -133,38 +133,19 @@ pipeline {
 	  /**/
 	  stage("Publish to Nexus Repository Manager") {
             steps {
-                script {
-                    pom = readMavenPom file: "pom.xml";
-                    filesByGlob = findFiles(glob: "target/*.${pom.packaging}");
-                    echo "${filesByGlob[0].name} ${filesByGlob[0].path} ${filesByGlob[0].directory} ${filesByGlob[0].length} ${filesByGlob[0].lastModified}"
-                    artifactPath = filesByGlob[0].path;
-                    artifactExists = fileExists artifactPath;
-                    if(artifactExists) {
-                        echo "*** File: ${artifactPath}, group: ${pom.groupId}, packaging: ${pom.packaging}, version ${pom.version}";
-                        nexusArtifactUploader(
-                            nexusVersion: 'nexus3',
-                            protocol: 'http',
-                            nexusUrl: '192.168.56.10:8081',
-                            groupId: 'pom.com.esprit.examen',
-                            version: 'pom.1.0',
-                            repository: 'maven-releases',
-                            credentialsId: NEXUS_CREDENTIAL_ID,
-                            artifacts: [
-                                [artifactId: 'pom.tpAchatProject',
-                                classifier: '',
-                                file: artifactPath,
-                                type: pom.packaging],
-                                [artifactId: 'pom.tpAchatProject',
-                                classifier: '',
-                                file: "pom.xml",
-                                type: "pom"]
-                            ]
-                        );
-                    } else {
-                        error "*** File: ${artifactPath}, could not be found";
-                    }
-                }
-            }
+	 nexusArtifactUploader artifacts: [
+	 [artifactId: 'tpAchatProject',
+	 classifier: '', file: 'target/tpAchatProject-1.0.jar',
+	 type: 'jar'
+	 ]], 
+	 credentialsId: NEXUS_CREDENTIAL_ID,
+	 groupId: 'com.esprit.examen',
+	 nexusUrl: '192.168.56.10:8081',
+	 nexusVersion: 'nexus3',
+	 protocol: 'http',
+	 repository: 'maven-releases',
+	 version: '1.0'   
+	    }
         }
 	  
 	   /**/
