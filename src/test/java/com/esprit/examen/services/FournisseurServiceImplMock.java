@@ -50,7 +50,7 @@ public class FournisseurServiceImplMock {
 	    public void addFournisseurTest() {
 			
 	    	Fournisseur ss = new Fournisseur(1L,"libelle2", "20", null, null, null, null);
-	    when(fournisseurRepository.save(ss)).thenReturn(ss);
+	    	when(this.fournisseurRepository.save(Mockito.any())).thenReturn(ss);
 	    assertEquals(ss, fournisseurServiceImpl.addFournisseur(ss));
 	    }
 	       
@@ -59,6 +59,7 @@ public class FournisseurServiceImplMock {
 	        @Test
 	    public void deleteFournisseurTest() {
 	        	Fournisseur ss = new Fournisseur(1L,"libelle2", "20", null, null, null, null);
+	        	when(this.fournisseurRepository.getById((Mockito.any()))).thenReturn(ss);
 	        	fournisseurServiceImpl.deleteFournisseur(ss.getIdFournisseur());
 	    verify(fournisseurRepository).deleteById(ss.getIdFournisseur());
 
