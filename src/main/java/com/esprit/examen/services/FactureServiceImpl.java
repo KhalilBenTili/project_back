@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.esprit.examen.entities.DetailFacture;
 import com.esprit.examen.entities.Facture;
 import com.esprit.examen.entities.Fournisseur;
@@ -16,7 +17,11 @@ import com.esprit.examen.repositories.FactureRepository;
 import com.esprit.examen.repositories.FournisseurRepository;
 import com.esprit.examen.repositories.OperateurRepository;
 import com.esprit.examen.repositories.ProduitRepository;
+import com.esprit.examen.services.IFactureService;	
+import com.esprit.examen.services.ReglementServiceImpl;	
+
 import lombok.extern.slf4j.Slf4j;
+
 
 @Service
 @Slf4j
