@@ -1,3 +1,3 @@
-FROM openjdk:8-alpine
-add /target/*  app.jar
-ENTRYPOINT ["java", "-jar", "app.jar"]
+FROM imagenarium/jdk-maven:17
+ADD /target/tpAchatProject-1.0.jar  tpAchatProject-1.0.jar
+ENTRYPOINT ["java","-jar","tpAchatProject-1.0.jar"]
