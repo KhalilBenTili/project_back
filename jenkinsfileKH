@@ -34,7 +34,7 @@ pipeline {
       
     }
 	               
-    
+  /*  
     stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
@@ -49,16 +49,16 @@ pipeline {
 			withSonarQubeEnv('sonar') {
 			     sh "mvn compile sonar:sonar"
                        	          }
-		    	    sh "mvn clean install"
+		    	    sh "mvn clean install -Dmaven.test.skip=true"
 
                  	}
                	 }
               }
-    
+    */
     stage ('Artifact construction') {
             steps {
                 sh 'echo "Artifact construction is processing ...."'
-                sh 'mvn  package' 
+                sh 'mvn  package -Dmaven.test.skip=true' 
             }
       
             
@@ -90,7 +90,7 @@ pipeline {
       	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
       }
   }
-
+/*
 	  stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -127,7 +127,7 @@ pipeline {
             }
         }
 	  
-	  
+*/	  
     
 }
   post {
