@@ -33,8 +33,7 @@ pipeline {
       }
       
     }
-	               
-  /*  
+	                 
     stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
@@ -54,7 +53,6 @@ pipeline {
                  	}
                	 }
               }
-    */
     stage ('Artifact construction') {
             steps {
                 sh 'echo "Artifact construction is processing ...."'
@@ -87,10 +85,10 @@ pipeline {
     	agent any
       steps {
         sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      	
       }
   }
-/*
+
 	  stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -127,18 +125,18 @@ pipeline {
             }
         }
 	  
-*/	  
+	  
     
 }
   post {
         success {
-             mail to: "houaidafatma.karoui@esprit.tn",
+             mail to: "khalil.bentili@esprit.tn",
                     subject: "Build sucess",
                     body: "sucess"
             echo 'successful'
         }
         failure {
-             mail to: "houaidafatma.karoui@esprit.tn",
+             mail to: "khalil.bentili@esprit.tn",
                     subject: "Build failed",
                     body: "failed"
             echo 'failed'
