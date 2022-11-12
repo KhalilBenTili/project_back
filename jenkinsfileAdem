@@ -57,7 +57,7 @@ pipeline {
       	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
       }
   }
-    
+    /*
     stage('Docker push') {
     	agent any
       steps {
@@ -65,7 +65,8 @@ pipeline {
       	
       }
   }
-  /*
+  */
+  
   stage('docker-compose up') {
       steps {
          sh 'echo "docker compose up ...."'
@@ -135,7 +136,7 @@ pipeline {
                     }
                 }
             }
-        }*/
+        }
 	  
 	  
     
