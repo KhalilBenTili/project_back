@@ -138,9 +138,9 @@ pipeline {
         }
 	  
   
-    
+  */  
 }
-*/	
+	
   post {
         success {
              mail to: "rihab.bengaied@esprit.tn",
