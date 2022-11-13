@@ -35,7 +35,44 @@ pipeline {
     }
 	               
     
-    stage('Junit Testing') {
+
+              }
+    
+    stage ('Artifact construction') {
+            steps {
+                sh 'echo "Artifact construction is processing ...."'
+                sh 'mvn  package -Dmaven.test.skip=true' 
+            }
+      
+            
+        }
+		
+    stage('Docker build') {
+    	agent any
+       steps {
+        sh 'echo "Docker is building ...."'
+      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
+      }
+  }
+    
+    
+    stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+    
+    stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      }
+  }
+    
+        stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
         sh 'mvn  test'
@@ -43,7 +80,7 @@ pipeline {
       }
     }
     
-    stage('Quality Gate Status Check'){
+    /*stage('Quality Gate Status Check'){
                   steps{
                       script{
 			withSonarQubeEnv('sonar') {
@@ -52,23 +89,11 @@ pipeline {
 		    	    sh "mvn clean install"
 
                  	}
-               	 }
-              }
-    
-    stage ('Artifact construction') {
-            steps {
-                sh 'echo "Artifact construction is processing ...."'
-                sh 'mvn  package' 
-            }
-      
-            
-        }
-    
-    
+               	 }*/
     
     
 
-	  stage("Publish to Nexus Repository Manager") {
+	 /* stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
@@ -102,45 +127,21 @@ pipeline {
                     }
                 }
             }
-        }
-	
-	/*stage('Docker build') {
-    	agent any
-      steps {
-        sh 'echo "Docker is building ...."'
-      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
-      }
-  }
-    
-    
-    stage('Docker login') {
-    	agent any
-      steps {
-        sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-      }
-  }
-    
-    stage('Docker push') {
-    	agent any
-      steps {
-        sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
-      }
-  }*/
+        }*/
+
 	  
 	  
     
 }
   post {
         success {
-             mail to: "houaidafatma.karoui@esprit.tn",
+             mail to: "yassine.kochat@esprit.tn",
                     subject: "Build sucess",
                     body: "sucess"
             echo 'successful'
         }
         failure {
-             mail to: "houaidafatma.karoui@esprit.tn",
+             mail to: "yassine.kochat@esprit.tn",
                     subject: "Build failed",
                     body: "failed"
             echo 'failed'
