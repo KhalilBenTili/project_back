@@ -33,8 +33,7 @@ public class FactureServiceImplTest {
 	o.setDateDerniereModificationFacture(m);
 	Facture savedOperateur= factureService.addFacture(o);
 	assertEquals(expected+1, factureService.retrieveAllFactures().size());
-	savedOperateurMontantFacture = 	savedOperateur.getMontantFacture();
-	assertNotNull(savedOperateurMontantFacture);
+	assertNotNull(savedOperateur.getMontantFacture());
 	factureService.cancelFacture(savedOperateur.getIdFacture());}
 	
 	@Test
