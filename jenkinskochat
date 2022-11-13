@@ -11,7 +11,7 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.1.15:8081"
         NEXUS_REPOSITORY = "nexusRepo"
-        NEXUS_CREDENTIAL_ID = "nexus_credentials"    
+        NEXUS_CREDENTIAL_ID = "nexus_credentials"     
     }
   
   stages {
@@ -27,7 +27,7 @@ pipeline {
         }
     stage('Cleaning the Project') {
       steps {
-         sh 'echo "Clean the Project is processing ...."'
+        sh 'echo "Clean the Project is processing ...."'
         sh 'mvn clean'
         
       }
@@ -35,9 +35,7 @@ pipeline {
     }
 	               
     
-
-              }
-    
+   
     stage ('Artifact construction') {
             steps {
                 sh 'echo "Artifact construction is processing ...."'
@@ -46,10 +44,10 @@ pipeline {
       
             
         }
-		
-    stage('Docker build') {
+	
+   stage('Docker build') {
     	agent any
-       steps {
+      steps {
         sh 'echo "Docker is building ...."'
       	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
       }
@@ -72,7 +70,8 @@ pipeline {
       }
   }
     
-        stage('Junit Testing') {
+    
+   /* stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
         sh 'mvn  test'
@@ -80,7 +79,7 @@ pipeline {
       }
     }
     
-    /*stage('Quality Gate Status Check'){
+    stage('Quality Gate Status Check'){
                   steps{
                       script{
 			withSonarQubeEnv('sonar') {
@@ -89,11 +88,10 @@ pipeline {
 		    	    sh "mvn clean install"
 
                  	}
-               	 }*/
+               	 }
+              } 
     
-    
-
-	 /* stage("Publish to Nexus Repository Manager") {
+	  stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
@@ -128,20 +126,18 @@ pipeline {
                 }
             }
         }*/
-
-	  
-	  
-    
+	
 }
+
   post {
         success {
-             mail to: "yassine.kochat@esprit.tn",
+             mail to: "houaidafatma.karoui@esprit.tn",
                     subject: "Build sucess",
                     body: "sucess"
             echo 'successful'
         }
         failure {
-             mail to: "yassine.kochat@esprit.tn",
+             mail to: "houaidafatma.karoui@esprit.tn",
                     subject: "Build failed",
                     body: "failed"
             echo 'failed'
