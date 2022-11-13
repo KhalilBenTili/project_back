@@ -25,7 +25,7 @@ pipeline {
                 '''
             }
         }
-    stage('Cleaning the Project') {
+	stage('Cleaning the Project') {
       steps {
          sh 'echo "Clean the Project is processing ...."'
         sh 'mvn clean'
@@ -33,40 +33,15 @@ pipeline {
       }
       
     }
-	               
-    
-    stage('Junit Testing') {
-      steps {
-         sh 'echo "Junit Test is processing ...."'
-        sh 'mvn  test'
-
-      }
-    }
-    
-    stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			withSonarQubeEnv('sonar') {
-			     sh "mvn compile sonar:sonar"
-                       	          }
-		    	    sh "mvn clean install"
-
-                 	}
-               	 }
-              }
-    
-    stage ('Artifact construction') {
+	stage ('Artifact construction') {
             steps {
                 sh 'echo "Artifact construction is processing ...."'
-                sh 'mvn  package' 
+                sh 'mvn  package -Dmaven.test.skip=true' 
             }
       
             
         }
-    
-    
-    
-    /*stage('Docker build') {
+	 stage('Docker build') {
     	agent any
       steps {
         sh 'echo "Docker is building ...."'
@@ -86,10 +61,45 @@ pipeline {
     stage('Docker push') {
     	agent any
       steps {
-        sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+        sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      	
       }
-  }*/
+  }
+  
+/*  stage('docker-compose up') {
+      steps {
+         sh 'echo "docker compose up ...."'
+        sh 'docker ps'
+        
+      }
+      
+    }
+    
+	                 
+    stage('Junit Testing') {
+      steps {
+         sh 'echo "Junit Test is processing ...."'
+        sh 'mvn  test'
+
+      }
+    }
+   
+    stage('Quality Gate Status Check'){
+                  steps{
+                      script{
+			withSonarQubeEnv('sonar') {
+			     sh "mvn compile sonar:sonar"
+                       	          }
+		    	    sh "mvn clean install -Dmaven.test.skip=true"
+
+                 	}
+               	 }
+              }
+    
+    
+   
+    
+   
 
 	  stage("Publish to Nexus Repository Manager") {
             steps {
@@ -127,9 +137,10 @@ pipeline {
             }
         }
 	  
-	  
-    
+  
+  */  
 }
+	
   post {
         success {
              mail to: "rihab.bengaied@esprit.tn",
@@ -144,6 +155,5 @@ pipeline {
             echo 'failed'
         }
       }
+      
 }
-
-
