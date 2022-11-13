@@ -9,9 +9,9 @@ pipeline {
         DOCKERHUB_CREDENTIALS = credentials('DockerHubID')
         NEXUS_VERSION = "nexus3"
         NEXUS_PROTOCOL = "http"
-        NEXUS_URL = "192.168.56.2:8081"
-        NEXUS_REPOSITORY = "Nexus_Repo"
-        NEXUS_CREDENTIAL_ID = "nexus_credentials"    
+        NEXUS_URL = "192.168.1.15:8081"
+        NEXUS_REPOSITORY = "nexusRepo"
+        NEXUS_CREDENTIAL_ID = "nexus_credentials"      
     }
   
   stages {
