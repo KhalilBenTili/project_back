@@ -75,6 +75,7 @@ public class ProduitServiceImplTest {
     assertEquals(p.getLibelleProduit(),savedProduit.getLibelleProduit());
     ps.deleteProduit(savedProduit.getIdProduit());
     }
+// test delet product
 
     @Test
     public void testDeleteProduit() {
@@ -90,5 +91,6 @@ public class ProduitServiceImplTest {
     assertNotNull(savedService.getIdProduit());
 
     }
+
 
 }
