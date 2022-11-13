@@ -16,7 +16,7 @@ pipeline {
   
   stages {
     stage ('Check Tools Initializing') {
-            steps {
+           steps {
                 sh 'java --version'
                 sh 'mvn --version'
                 sh '''
@@ -33,8 +33,7 @@ pipeline {
       }
       
     }
-	               
-    
+	                  
    
     stage ('Artifact construction') {
             steps {
@@ -46,7 +45,7 @@ pipeline {
         }
 	
    stage('Docker build') {
-    	agent any
+      agent any
       steps {
         sh 'echo "Docker is building ...."'
       	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
@@ -66,7 +65,7 @@ pipeline {
     	agent any
       steps {
         sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      	/*sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'*/
       }
   }
     
