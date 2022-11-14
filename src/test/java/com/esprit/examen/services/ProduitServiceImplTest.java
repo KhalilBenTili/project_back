@@ -30,7 +30,7 @@ public class ProduitServiceImplTest {
     @Test
    public void retrieveAllProduits() {
     	List<Produit> listProduits = ps.retrieveAllProduits();
-        assertEquals(0, listProduits.size());
+        assertEquals(2, listProduits.size());
     }
     
 	private String codeProduit;
