@@ -1,4 +1,4 @@
-FROM imagenarium/jdk-maven:17
-ADD https://github.com/cladiators1/project_back/tree/master/target .
+FROM openjdk:8
+ADD target/tpAchatProject-1.0.jar  tpAchatProject-1.0.jar
+EXPOSE 8088
 ENTRYPOINT ["java","-jar","tpAchatProject-1.0.jar"]
-
