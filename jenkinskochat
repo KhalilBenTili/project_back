@@ -11,7 +11,7 @@ pipeline {
         NEXUS_PROTOCOL = "http"
         NEXUS_URL = "192.168.1.15:8081"
         NEXUS_REPOSITORY = "nexusRepo"
-        NEXUS_CREDENTIAL_ID = "nexus_credentials"    
+        NEXUS_CREDENTIAL_ID = "nexus_credentials"     
     }
   
   stages {
@@ -27,7 +27,7 @@ pipeline {
         }
     stage('Cleaning the Project') {
       steps {
-         sh 'echo "Clean the Project is processing ...."'
+        sh 'echo "Clean the Project is processing ...."'
         sh 'mvn clean'
         
       }
@@ -35,7 +35,43 @@ pipeline {
     }
 	               
     
-    stage('Junit Testing') {
+   
+    stage ('Artifact construction') {
+            steps {
+                sh 'echo "Artifact construction is processing ...."'
+                sh 'mvn  package -Dmaven.test.skip=true' 
+            }
+      
+            
+        }
+	
+   stage('Docker build') {
+    	agent any
+      steps {
+        sh 'echo "Docker is building ...."'
+      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
+      }
+  }
+    
+    
+    stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+    
+    stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      }
+  }
+    
+    
+   /* stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
         sh 'mvn  test'
@@ -53,21 +89,8 @@ pipeline {
 
                  	}
                	 }
-              }
+              } 
     
-    stage ('Artifact construction') {
-            steps {
-                sh 'echo "Artifact construction is processing ...."'
-                sh 'mvn  package' 
-            }
-      
-            
-        }
-    
-    
-    
-    
-
 	  stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
@@ -102,36 +125,10 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 	
-	/*stage('Docker build') {
-    	agent any
-      steps {
-        sh 'echo "Docker is building ...."'
-      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
-      }
-  }
-    
-    
-    stage('Docker login') {
-    	agent any
-      steps {
-        sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-      }
-  }
-    
-    stage('Docker push') {
-    	agent any
-      steps {
-        sh 'echo "Docker is pushing ...."'
-      	sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
-      }
-  }*/
-	  
-	  
-    
 }
+
   post {
         success {
              mail to: "houaidafatma.karoui@esprit.tn",
