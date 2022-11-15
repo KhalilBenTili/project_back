@@ -164,7 +164,7 @@
 					<name>Nexus repository</name>
 					<url>http://192.168.56.4:8081/repository/java-app/</url>
 				</repository>
-			</distributionManagement
+			</distributionManagement>
 
 </project>
 
