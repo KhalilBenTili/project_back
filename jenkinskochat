@@ -48,25 +48,7 @@ pipeline {
 
     
     
-  stage('Junit Testing') {
-      steps {
-         sh 'echo "Junit Test is processing ...."'
-        sh 'mvn  test'
-
-      }
-    }
-    
-    stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			withSonarQubeEnv('sonar') {
-			     sh "mvn compile sonar:sonar"
-                       	          }
-		    	    sh "mvn clean install"
-
-                 	}
-               	 }
-              } 
+  
 	         stage('Docker build') {
     	agent any
       steps {
@@ -91,6 +73,26 @@ pipeline {
       /* sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5' */
       }
   }
+  stage('Junit Testing') {
+      steps {
+         sh 'echo "Junit Test is processing ...."'
+        sh 'mvn  test'
+
+      }
+    }
+    
+    
+    stage('Quality Gate Status Check'){
+                  steps{
+                      script{
+			withSonarQubeEnv('sonar') {
+			     sh "mvn compile sonar:sonar"
+                       	          }
+		    	    sh "mvn clean install"
+
+                 	}
+               	 }
+              } 
     
 	  stage("Publish to Nexus Repository Manager") {
             steps {
