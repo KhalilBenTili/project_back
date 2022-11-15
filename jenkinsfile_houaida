@@ -43,6 +43,14 @@ pipeline {
       
             
         }
+
+   stage('Junit Testing') {
+      steps {
+         sh 'echo "Junit Test is processing ...."'
+        sh 'mvn  test'
+
+      }
+    }
 	
    stage('Docker build') {
       agent any
@@ -70,13 +78,7 @@ pipeline {
   }
     
     
-    stage('Junit Testing') {
-      steps {
-         sh 'echo "Junit Test is processing ...."'
-        sh 'mvn  test'
-
-      }
-    }
+    
     
     stage('Quality Gate Status Check'){
                   steps{
