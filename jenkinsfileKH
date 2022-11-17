@@ -38,9 +38,34 @@ pipeline {
                 sh 'mvn  package -Dmaven.test.skip=true' 
             }       
         }
+                
+    stage('Junit Testing') {
+     steps{
+                 sh 'echo "Junit Test is processing ...."'
+                 sh 'mvn  test'
+            }
+    }
+    
+    stage('Quality Gate Status Check'){
+                  steps{
+                      script{
+			withSonarQubeEnv('sonar') {
+			    sh "mvn compile sonar:sonar"
+                       	         }
+		    	   
+
+                 	}
+               	 }
+              }
 
 
-    stage('Docker build') {
+	stage("Publish to Nexus Repository Manager") {
+            steps {
+                sh 'mvn deploy -DskipTests'
+            }
+        }
+        
+  stage('Docker build') {
     	agent any
       steps {
         sh 'echo "Docker is building ...."'
@@ -67,33 +92,6 @@ pipeline {
       }
     }
 
- 
-		                 
-    stage('Junit Testing') {
-     steps{
-                 sh 'echo "Junit Test is processing ...."'
-                 sh 'mvn  test'
-            }
-    }
-    
-    stage('Quality Gate Status Check'){
-                  steps{
-                      script{
-			withSonarQubeEnv('sonar') {
-			    sh "mvn compile sonar:sonar"
-                       	         }
-		    	   
-
-                 	}
-               	 }
-              }
-
-
-	stage("Publish to Nexus Repository Manager") {
-            steps {
-                sh 'mvn deploy -DskipTests'
-            }
-        }
 	
     stage('docker check containers') {
       steps {
