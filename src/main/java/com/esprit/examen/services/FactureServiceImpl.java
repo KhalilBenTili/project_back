@@ -65,7 +65,7 @@ public class FactureServiceImpl implements IFactureService {
 		for (DetailFacture detail : detailsFacture) {
 			//Récuperer le produit 
 			Produit produit = produitRepository.findById(detail.getProduit().getIdProduit()).orElse(null);
-			if (produit ==null){
+			if (produit == null){
 				throw new NullPointerException();
 			}
 			//Calculer le montant total pour chaque détail Facture
