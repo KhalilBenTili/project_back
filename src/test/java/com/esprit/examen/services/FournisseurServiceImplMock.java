@@ -30,8 +30,7 @@ import com.esprit.examen.services.FournisseurServiceImpl;
 
 
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class FournisseurServiceImplMock {
 
 	 @Mock
