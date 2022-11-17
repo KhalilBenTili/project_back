@@ -17,8 +17,8 @@ import com.esprit.examen.repositories.FactureRepository;
 import com.esprit.examen.repositories.FournisseurRepository;
 import com.esprit.examen.repositories.OperateurRepository;
 import com.esprit.examen.repositories.ProduitRepository;
-import com.esprit.examen.services.IFactureService;	
-import com.esprit.examen.services.ReglementServiceImpl;	
+import com.esprit.examen.services.IFactureService;
+import com.esprit.examen.services.ReglementServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,9 +38,9 @@ public class FactureServiceImpl implements IFactureService {
 	FournisseurRepository fournisseurRepository;
 	@Autowired
 	ProduitRepository produitRepository;
-    @Autowired
-    ReglementServiceImpl reglementService;
-	
+	@Autowired
+	ReglementServiceImpl reglementService;
+
 	@Override
 	public List<Facture> retrieveAllFactures() {
 		List<Facture> factures = (List<Facture>) factureRepository.findAll();
@@ -50,7 +50,7 @@ public class FactureServiceImpl implements IFactureService {
 		return factures;
 	}
 
-	
+
 	public Facture addFacture(Facture f) {
 		return factureRepository.save(f);
 	}
@@ -64,7 +64,10 @@ public class FactureServiceImpl implements IFactureService {
 		float montantRemise = 0;
 		for (DetailFacture detail : detailsFacture) {
 			//Récuperer le produit 
-			Produit produit = produitRepository.findById(detail.getProduit().getIdProduit()).get();
+			Produit produit = produitRepository.findById(detail.getProduit().getIdProduit()).orElse(null);
+			if (produit ==null){
+				throw new NullPointerException();
+			}
 			//Calculer le montant total pour chaque détail Facture
 			float prixTotalDetail = detail.getQteCommandee() * produit.getPrix();
 			//Calculer le montant remise pour chaque détail Facture
@@ -105,6 +108,9 @@ public class FactureServiceImpl implements IFactureService {
 	@Override
 	public List<Facture> getFacturesByFournisseur(Long idFournisseur) {
 		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);
+		if (fournisseur ==null){
+			throw new NullPointerException();
+		}
 		return (List<Facture>) fournisseur.getFactures();
 	}
 
@@ -112,6 +118,9 @@ public class FactureServiceImpl implements IFactureService {
 	public void assignOperateurToFacture(Long idOperateur, Long idFacture) {
 		Facture facture = factureRepository.findById(idFacture).orElse(null);
 		Operateur operateur = operateurRepository.findById(idOperateur).orElse(null);
+		if (operateur ==null){
+			throw new NullPointerException();
+		}
 		operateur.getFactures().add(facture);
 		operateurRepository.save(operateur);
 	}
@@ -123,6 +132,6 @@ public class FactureServiceImpl implements IFactureService {
 		float pourcentage=(totalRecouvrementEntreDeuxDates/totalFacturesEntreDeuxDates)*100;
 		return pourcentage;
 	}
-	
+
 
 }
