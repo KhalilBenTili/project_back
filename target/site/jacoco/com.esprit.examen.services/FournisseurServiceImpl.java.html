@@ -17,8 +17,8 @@ import com.esprit.examen.repositories.SecteurActiviteRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
-<span class="fc" id="L20">@Slf4j</span>
-<span class="fc" id="L21">public class FournisseurServiceImpl implements IFournisseurService {</span>
+<span class="nc" id="L20">@Slf4j</span>
+<span class="nc" id="L21">public class FournisseurServiceImpl implements IFournisseurService {</span>
 
 	@Autowired
 	FournisseurRepository fournisseurRepository;
@@ -31,58 +31,61 @@ import lombok.extern.slf4j.Slf4j;
 
 	@Override
 	public List&lt;Fournisseur&gt; retrieveAllFournisseurs() {
-<span class="fc" id="L34">		List&lt;Fournisseur&gt; fournisseurs = (List&lt;Fournisseur&gt;) fournisseurRepository.findAll();</span>
-<span class="fc bfc" id="L35" title="All 2 branches covered.">		for (Fournisseur fournisseur : fournisseurs) {</span>
-<span class="fc" id="L36">			log.info(&quot; fournisseur : &quot; + fournisseur);</span>
-<span class="fc" id="L37">		}</span>
-<span class="fc" id="L38">		return fournisseurs;</span>
+<span class="nc" id="L34">		List&lt;Fournisseur&gt; fournisseurs = (List&lt;Fournisseur&gt;) fournisseurRepository.findAll();</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">		for (Fournisseur fournisseur : fournisseurs) {</span>
+<span class="nc" id="L36">			log.info(&quot; fournisseur : &quot; + fournisseur);</span>
+<span class="nc" id="L37">		}</span>
+<span class="nc" id="L38">		return fournisseurs;</span>
 	}
 
 
 	public Fournisseur addFournisseur(Fournisseur f /*Master*/) {
-<span class="fc" id="L43">		DetailFournisseur df= new DetailFournisseur();//Slave</span>
-<span class="fc" id="L44">		df.setDateDebutCollaboration(new Date()); //util</span>
+<span class="nc" id="L43">		DetailFournisseur df= new DetailFournisseur();//Slave</span>
+<span class="nc" id="L44">		df.setDateDebutCollaboration(new Date()); //util</span>
 		//On affecte le &quot;Slave&quot; au &quot;Master&quot;
-<span class="fc" id="L46">		f.setDetailFournisseur(df);	</span>
-<span class="fc" id="L47">		fournisseurRepository.save(f);</span>
-<span class="fc" id="L48">		return f;</span>
+<span class="nc" id="L46">		f.setDetailFournisseur(df);	</span>
+<span class="nc" id="L47">		fournisseurRepository.save(f);</span>
+<span class="nc" id="L48">		return f;</span>
 	}
 	
 	private DetailFournisseur  saveDetailFournisseur(Fournisseur f){
-<span class="fc" id="L52">		DetailFournisseur df = f.getDetailFournisseur();</span>
-<span class="fc" id="L53">		detailFournisseurRepository.save(df);</span>
-<span class="fc" id="L54">		return df;</span>
+<span class="nc" id="L52">		DetailFournisseur df = f.getDetailFournisseur();</span>
+<span class="nc" id="L53">		detailFournisseurRepository.save(df);</span>
+<span class="nc" id="L54">		return df;</span>
 	}
 
 	public Fournisseur updateFournisseur(Fournisseur f) {
-<span class="fc" id="L58">		DetailFournisseur df = saveDetailFournisseur(f);</span>
-<span class="fc" id="L59">		f.setDetailFournisseur(df);	</span>
-<span class="fc" id="L60">		fournisseurRepository.save(f);</span>
-<span class="fc" id="L61">		return f;</span>
+<span class="nc" id="L58">		DetailFournisseur df = saveDetailFournisseur(f);</span>
+<span class="nc" id="L59">		f.setDetailFournisseur(df);	</span>
+<span class="nc" id="L60">		fournisseurRepository.save(f);</span>
+<span class="nc" id="L61">		return f;</span>
 	}
 
 	@Override
 	public void deleteFournisseur(Long fournisseurId) {
-<span class="fc" id="L66">		fournisseurRepository.deleteById(fournisseurId);</span>
+<span class="nc" id="L66">		fournisseurRepository.deleteById(fournisseurId);</span>
 
-<span class="fc" id="L68">	}</span>
+<span class="nc" id="L68">	}</span>
 
 	@Override
 	public Fournisseur retrieveFournisseur(Long fournisseurId) {
 
-<span class="fc" id="L73">		Fournisseur fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);</span>
-<span class="fc" id="L74">		return fournisseur;</span>
+<span class="nc" id="L73">		Fournisseur fournisseur = fournisseurRepository.findById(fournisseurId).orElse(null);</span>
+<span class="nc" id="L74">		return fournisseur;</span>
 	}
 
 	@Override
 	public void assignSecteurActiviteToFournisseur(Long idSecteurActivite, Long idFournisseur) {
 <span class="nc" id="L79">		Fournisseur fournisseur = fournisseurRepository.findById(idFournisseur).orElse(null);</span>
-<span class="nc" id="L80">		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);</span>
-<span class="nc" id="L81">        fournisseur.getSecteurActivites().add(secteurActivite);</span>
-<span class="nc" id="L82">        fournisseurRepository.save(fournisseur);</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">		if (fournisseur ==null){</span>
+<span class="nc" id="L81">			throw new NullPointerException();</span>
+		}
+<span class="nc" id="L83">		SecteurActivite secteurActivite = secteurActiviteRepository.findById(idSecteurActivite).orElse(null);</span>
+<span class="nc" id="L84">        fournisseur.getSecteurActivites().add(secteurActivite);</span>
+<span class="nc" id="L85">        fournisseurRepository.save(fournisseur);</span>
 		
 		
-<span class="nc" id="L85">	}</span>
+<span class="nc" id="L88">	}</span>
 
 	
 

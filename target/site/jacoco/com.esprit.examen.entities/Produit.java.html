@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 <span class="nc" id="L22">@Setter</span>
 <span class="nc" id="L23">@AllArgsConstructor</span>
-<span class="fc" id="L24">@NoArgsConstructor</span>
+<span class="nc" id="L24">@NoArgsConstructor</span>
 public class Produit implements Serializable {
 
 	/**
@@ -47,7 +47,9 @@ public class Produit implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 <span class="nc" id="L49">	private CategorieProduit categorieProduit;</span>
-	
+<span class="nc" id="L50">	public  Produit(Long id) {</span>
+<span class="nc" id="L51">		this.idProduit=id;	</span>
+<span class="nc" id="L52">	}</span>
 
 
 	
