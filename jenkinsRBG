@@ -14,6 +14,7 @@ pipeline {
         NEXUS_CREDENTIAL_ID = "nexus"     
     }
   
+ 
   stages {
     stage ('Check Tools Initializing') {
             steps {
@@ -25,6 +26,7 @@ pipeline {
                 '''
             }
         }
+	
 	stage('Cleaning the Project') {
       steps {
          sh 'echo "Clean the Project is processing ...."'
@@ -38,53 +40,18 @@ pipeline {
                 sh 'echo "Artifact construction is processing ...."'
                 sh 'mvn  package -Dmaven.test.skip=true' 
             }
-      
-            
+	        
         }
-	 stage('Docker build') {
-    	agent any
-      steps {
-        sh 'echo "Docker is building ...."'
-      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
-      }
-  }
-    
-    
-    stage('Docker login') {
-    	agent any
-      steps {
-        sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-      }
-  }
-    
-    stage('Docker push') {
-    	agent any
-      steps {
-  
-  		sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5' 
-      	
-      }
-  } 
-   stage('docker-compose up') {
-      steps {
-         sh 'echo "docker compose up ...."'
-        sh 'docker ps'
-        
-      }
-      
-    }
-    
-/*	                 
-    stage('Junit Testing') {
+	
+	stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
         sh 'mvn  test'
 
       }
     }
-*/   
-    stage('Quality Gate Status Check'){
+    
+       stage('Quality Gate Status Check'){
                   steps{
                       script{
 			withSonarQubeEnv('sonar') {
@@ -95,13 +62,9 @@ pipeline {
                  	}
                	 }
               }
-    
-    
-   
-    
-   
-
-	  stage("Publish to Nexus Repository Manager") {
+	      
+	      
+	stage("Publish to Nexus Repository Manager") {
             steps {
                 script {
                     pom = readMavenPom file: "pom.xml";
@@ -136,9 +99,46 @@ pipeline {
                 }
             }
         }
-	  
+	      
+	      
+	
+	 stage('Docker build') {
+    	agent any
+      steps {
+        sh 'echo "Docker is building ...."'
+      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
+      }
+  }
+    
+    
+    stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+    /*decomment*/
+    stage('Docker push') {
+    	agent any
+      steps {
+        sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5'
+      	
+      }
+  }
   
   
+  /*
+  stage('docker-compose up') {
+      steps {
+         sh 'echo "docker compose up ...."'
+        sh 'docker ps'
+        
+      }
+      
+    }
+    */
+     
 }
 	
   post {
