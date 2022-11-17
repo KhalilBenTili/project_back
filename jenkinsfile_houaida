@@ -17,6 +17,7 @@ pipeline {
   stages {
     stage ('Check Tools Initializing') {
            steps {
+	   	echo "hello test push auto"
                 sh 'java --version'
                 sh 'mvn --version'
                 sh '''
