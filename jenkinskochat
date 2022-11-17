@@ -49,30 +49,7 @@ pipeline {
     
     
   
-	         stage('Docker build') {
-    	agent any
-      steps {
-        sh 'echo "Docker is building ...."'
-      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
-      }
-  }
-    
-    
-    stage('Docker login') {
-    	agent any
-      steps {
-        sh 'echo "login Docker ...."'
-      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
-      }
-  }
-    
-    stage('Docker push') {
-    	agent any
-      steps {
-        sh 'echo "Docker is pushing ...."'
-      /* sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5' */
-      }
-  }
+	       
   stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
@@ -129,6 +106,31 @@ pipeline {
                 }
             }
         }
+	  stage('Docker build') {
+    	agent any
+      steps {
+        sh 'echo "Docker is building ...."'
+      	sh 'docker build -t $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5 .'
+      }
+  }
+    
+    
+    stage('Docker login') {
+    	agent any
+      steps {
+        sh 'echo "login Docker ...."'
+      	sh 'docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
+      }
+  }
+    
+    stage('Docker push') {
+    	agent any
+      steps {
+        sh 'echo "Docker is pushing ...."'
+      /* sh 'docker push $DOCKERHUB_CREDENTIALS_USR/devops_project_5ds1group5' */
+      }
+  }
+	
 	
 }
 
