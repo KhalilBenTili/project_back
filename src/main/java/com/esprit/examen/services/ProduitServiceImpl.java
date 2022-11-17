@@ -69,7 +69,7 @@ public class ProduitServiceImpl implements IProduitService {
 
 				Produit produit = produitRepository.findById(idProduit).orElse(null);
 				if (produit ==null){
-					logger("produit NULL !");
+					
 					throw new NullPointerException();
 					}
 				Stock stock = stockRepository.findById(idStock).orElse(null);
