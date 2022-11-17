@@ -128,7 +128,7 @@ pipeline {
   }
   
   
-  /*
+  
   stage('docker-compose up') {
       steps {
          sh 'echo "docker compose up ...."'
@@ -137,7 +137,7 @@ pipeline {
       }
       
     }
-    */
+    
      
 }
 	
