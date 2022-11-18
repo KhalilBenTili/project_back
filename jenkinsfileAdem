@@ -118,7 +118,7 @@ pipeline {
       }
   }
     /*decomment*/
-    /*
+    
     stage('Docker push') {
     	agent any
       steps {
@@ -126,7 +126,7 @@ pipeline {
       	
       }
   }
-  */
+  
   
   
   /*
