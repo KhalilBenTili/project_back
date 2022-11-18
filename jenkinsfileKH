@@ -47,7 +47,7 @@ pipeline {
 	    post { 
 	    success { archiveArtifacts 'target/*.jar'  }
         }
-                
+      }          
     stage('Junit Testing') {
      steps{
                  sh 'echo "Junit Test is processing ...."'
