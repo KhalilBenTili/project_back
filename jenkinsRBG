@@ -42,7 +42,7 @@ pipeline {
             }
 	        
         }
-/*	
+	
 	stage('Junit Testing') {
       steps {
          sh 'echo "Junit Test is processing ...."'
@@ -100,7 +100,7 @@ pipeline {
             }
         }
 	      
-  */  	      
+  	      
 	
 	 stage('Docker build') {
     	agent any
